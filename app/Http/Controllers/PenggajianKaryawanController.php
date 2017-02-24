@@ -8,6 +8,7 @@ use App\pegawai ;
 use auth ;
 use App\penggajian ;
 use App\tunjangan_pegawai ;
+use DateTime ;
 class PenggajianKaryawanController extends Controller
 {
     /**
@@ -20,12 +21,15 @@ class PenggajianKaryawanController extends Controller
         $user=User::where('email',auth::user()->email)->first();
         $pegawai=pegawai::where('id_user',$user->id)->first();
         $tunjanganpegawai=tunjangan_pegawai::where('id_pegawai',$pegawai->id)->first();
+
+        $penggajian=penggajian::where('id_tunjangan_pegawai',$tunjanganpegawai->id)->orderBy('created_at','dsc')->first();
+        // dd($penggajian->created_at);
+
+
         if (!isset($tunjanganpegawai)) {
             return view('gaji.indexbelumpunyagaji',compact('pegawai','tunjanganpegawai','penggajian'));
         }
-        $penggajian=penggajian::where('id_tunjangan_pegawai',$tunjanganpegawai->id)->first();
-         // dd($penggajian);
-        if (!isset($tunjanganpegawai) || !isset($penggajian)) {
+        elseif (!isset($tunjanganpegawai) || !isset($penggajian)) {
             return view('gaji.indexbelumpunyagaji',compact('pegawai','tunjanganpegawai','penggajian'));
         }
         return view('gaji.index',compact('pegawai','tunjanganpegawai','penggajian'));
@@ -38,7 +42,20 @@ class PenggajianKaryawanController extends Controller
      */
     public function create()
     {
-        //
+        $user=User::where('email',auth::user()->email)->first();
+        $pegawai=pegawai::where('id_user',$user->id)->first();
+        $tunjanganpegawai=tunjangan_pegawai::where('id_pegawai',$pegawai->id)->first();
+
+        $penggajian=penggajian::where('id_tunjangan_pegawai',$tunjanganpegawai->id)->orderBy('created_at','asc')->first();
+        // dd($penggajian->created_at);
+
+        if (!isset($tunjanganpegawai)) {
+            return view('gaji.indexbelumpunyagaji',compact('pegawai','tunjanganpegawai','penggajian'));
+        }
+        elseif (!isset($tunjanganpegawai) || !isset($penggajian)) {
+            return view('gaji.indexbelumpunyagaji',compact('pegawai','tunjanganpegawai','penggajian'));
+        }
+        return view('gaji.index',compact('pegawai','tunjanganpegawai','penggajian'));
     }
 
     /**
@@ -60,7 +77,7 @@ class PenggajianKaryawanController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

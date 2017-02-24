@@ -33,7 +33,13 @@
                                     <span class="help-block">
                                         <strong>{{ $errors->first('jumlah_jam') }}</strong>
                                     </span>
+                                    <div class="col-md-6">
+                                @if(isset($error))
+                                    Hari Ini Dia Sudah Lembur
+                                @endif
                             </div>
+                            </div>
+                            
 
                             
                         

@@ -55,5 +55,6 @@ class Kernel extends HttpKernel
         'AdminMiddleware' => \App\Http\Middleware\AdminMiddleware::class,
         'AdminHrdMiddleware' => \App\Http\Middleware\AdminHrdMiddleware::class,
         'AdminKeuanganMiddleware' => \App\Http\Middleware\AdminKeuanganMiddleware::class,
+        'jwt-auth' => \App\Http\Middleware\authJWT::class,
     ];
 }

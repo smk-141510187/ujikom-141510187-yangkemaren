@@ -87,6 +87,7 @@
                 <center>
                 <h3><b>APeKa</b></h3>
                     <h4>Aplikasi Penggajian Karyawan</h4>
+                    
             </div>
 
                 @if (Auth::guest())

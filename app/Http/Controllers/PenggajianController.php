@@ -28,8 +28,19 @@ class PenggajianController extends Controller
     }
     public function index()
     {
-        $penggajian=penggajian::paginate(4);
+        $penggajian=penggajian::OrderBy('created_at','desc')->paginate(4);
+        // $a=$penggajian->created_at ;
+        // dd($a);
+        $date=carbon::now();
+
+        // if(request()->has('')){
+        //     $golongan=Golongan::where('kode_golongan',request('kode_golongan'))->paginate(0);
+        // }
+        // <form action="{{url('golongan')}}/?kode_golongan=kode_golongan"> <input type="text" name="kode_golongan"> <button type="submit" class="btn btn-primary">
+        //                             cari
+        
         return view('penggajian.index',compact('penggajian'));
+        
     }
 
     /**
@@ -107,12 +118,11 @@ class PenggajianController extends Controller
             $penggajian->jumlah_uang_lembur=$nol ;
             $penggajian->gaji_pokok=$wherejabatan->besaran_uang+$wheregolongan->besaran_uang;
             $penggajian->gaji_total=($wheretunjangan->besaran_uang)+($wherejabatan->besaran_uang+$wheregolongan->besaran_uang);
-        $penggajian->id_tunjangan_pegawai=Input::get('id_tunjangan_pegawai');
-        $penggajian->petugas_penerima=auth::user()->name ;
-        $penggajian->save();
+            $penggajian->id_tunjangan_pegawai=Input::get('id_tunjangan_pegawai');
+            $penggajian->petugas_penerima=auth::user()->name ;
+            $penggajian->save();
         }
         else{
-
             $penggajian->jumlah_jam_lembur=$wherelemburpegawai->jumlah_jam;
             $penggajian->jumlah_uang_lembur=$wherelemburpegawai->jumlah_jam*$wherekategorilembur->besaran_uang ;
             

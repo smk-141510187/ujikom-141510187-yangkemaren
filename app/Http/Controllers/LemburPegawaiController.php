@@ -75,10 +75,10 @@ class LemburPegawaiController extends Controller
             {
                 if($lemburpegawaibaru->created_at->day==$now->day)
                 {
+                    $error=true ;
                 $kategorilembur=kategori_lembur::all();
                 $pegawai=pegawai::all();
-                $error=true ;
-                return view('lemburpegawai.create',compact('pegawai','kategorilembur','true'));
+                return view('lemburpegawai.create',compact('pegawai','kategorilembur','error'));
                 }
             }
 

@@ -21,7 +21,9 @@ class TunjanganPegawaiController extends Controller
     }
     public function index()
     {
+
         $tunjanganpegawai=tunjangan_pegawai::paginate(10);
+        
         return view('tunjanganpegawai.index',compact('tunjanganpegawai'));
     }
 
@@ -194,7 +196,9 @@ class TunjanganPegawaiController extends Controller
      */
     public function destroy($id)
     {
-        tunjangan_pegawai::find($id)->delete();
+        $tunjanganpegawai=tunjangan_pegawai::find($id);
+        $tunjangan=tunjangan::where('id',$tunjanganpegawai->id_tunjangan)->delete();
+        $tunjanganpegawai->delete();
         return redirect('tunjanganpegawai');
     }
 }
